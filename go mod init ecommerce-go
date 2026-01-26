@@ -1,0 +1,21 @@
+ecommerce-go/
+│
+├── cmd/
+│   └── main.go
+│
+├── internal/
+│   ├── usuarios/
+│   │   └── usuarios.go
+│   ├── productos/
+│   │   └── productos.go
+│   ├── pedidos/
+│   │   └── pedidos.go
+│   └── seguridad/
+│       └── seguridad.go
+│
+├── docs/
+│   └── planeacion.docx
+│
+├── go.mod
+├── README.md
+└── .gitignore
