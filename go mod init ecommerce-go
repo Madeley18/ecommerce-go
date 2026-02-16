@@ -19,3 +19,181 @@ ecommerce-go/
 ├── go.mod
 ├── README.md
 └── .gitignore
+package main
+
+import (
+    "errors"
+    "fmt"
+)
+
+// Interfaz que define el contrato de un producto
+type Producto interface {
+    Nombre() string
+    Precio() float64
+    MostrarInfo() string
+}
+
+// Error personalizado
+type ErrorPersonalizado string
+
+func (e ErrorPersonalizado) Error() string {
+    return string(e)
+}
+
+// Estructura ProductoFisico
+type ProductoFisico struct {
+    nombre string
+    precio float64
+    stock  int
+}
+
+func (p ProductoFisico) Nombre() string {
+    return p.nombre
+}
+
+func (p ProductoFisico) Precio() float64 {
+    return p.precio
+}
+
+func (p ProductoFisico) MostrarInfo() string {
+    return fmt.Sprintf("Producto: %s | Precio: $%.2f | Stock: %d unidades", p.nombre, p.precio, p.stock)
+}
+
+// Estructura ProductoDigital
+type ProductoDigital struct {
+    nombre string
+    precio float64
+    licencia string
+}
+
+func (p ProductoDigital) Nombre() string {
+    return p.nombre
+}
+
+func (p ProductoDigital) Precio() float64 {
+    return p.precio
+}
+
+func (p ProductoDigital) MostrarInfo() string {
+    return fmt.Sprintf("Producto: %s | Precio: $%.2f | Licencia: %s", p.nombre, p.precio, p.licencia)
+}
+
+// Función para mostrar producto con manejo de errores
+func MostrarProducto(p Producto) error {
+    if p.Precio() <= 0 {
+        return ErrorPersonalizado("Precio inválido")
+    }
+    fmt.Println(p.MostrarInfo())
+    return nil
+}
+
+// Función principal
+func main() {
+    // Crear productos
+    fisico := ProductoFisico{nombre: "Camiseta", precio: 25.99, stock: 10}
+    digital := ProductoDigital{nombre: "E-book Go", precio: 9.99, licencia: "Single User"}
+
+    // Mostrar productos
+    if err := MostrarProducto(fisico); err != nil {
+        fmt.Println("Error:", err)
+    }
+
+    if err := MostrarProducto(digital); err != nil {
+        fmt.Println("Error:", err)
+    }
+
+    // Ejemplo de error
+    malProducto := ProductoFisico{nombre: "Zapatos", precio: -5, stock: 5}
+    if err := MostrarProducto(malProducto); err != nil {
+        fmt.Println("Error detectado:", err)
+    }
+}
+package main
+
+import (
+    "errors"
+    "fmt"
+)
+
+// Interfaz que define el contrato de un producto
+type Producto interface {
+    Nombre() string
+    Precio() float64
+    MostrarInfo() string
+}
+
+// Error personalizado
+type ErrorPersonalizado string
+
+func (e ErrorPersonalizado) Error() string {
+    return string(e)
+}
+
+// Estructura ProductoFisico
+type ProductoFisico struct {
+    nombre string
+    precio float64
+    stock  int
+}
+
+func (p ProductoFisico) Nombre() string {
+    return p.nombre
+}
+
+func (p ProductoFisico) Precio() float64 {
+    return p.precio
+}
+
+func (p ProductoFisico) MostrarInfo() string {
+    return fmt.Sprintf("Producto: %s | Precio: $%.2f | Stock: %d unidades", p.nombre, p.precio, p.stock)
+}
+
+// Estructura ProductoDigital
+type ProductoDigital struct {
+    nombre string
+    precio float64
+    licencia string
+}
+
+func (p ProductoDigital) Nombre() string {
+    return p.nombre
+}
+
+func (p ProductoDigital) Precio() float64 {
+    return p.precio
+}
+
+func (p ProductoDigital) MostrarInfo() string {
+    return fmt.Sprintf("Producto: %s | Precio: $%.2f | Licencia: %s", p.nombre, p.precio, p.licencia)
+}
+
+// Función para mostrar producto con manejo de errores
+func MostrarProducto(p Producto) error {
+    if p.Precio() <= 0 {
+        return ErrorPersonalizado("Precio inválido")
+    }
+    fmt.Println(p.MostrarInfo())
+    return nil
+}
+
+// Función principal
+func main() {
+    // Crear productos
+    fisico := ProductoFisico{nombre: "Camiseta", precio: 25.99, stock: 10}
+    digital := ProductoDigital{nombre: "E-book Go", precio: 9.99, licencia: "Single User"}
+
+    // Mostrar productos
+    if err := MostrarProducto(fisico); err != nil {
+        fmt.Println("Error:", err)
+    }
+
+    if err := MostrarProducto(digital); err != nil {
+        fmt.Println("Error:", err)
+    }
+
+    // Ejemplo de error
+    malProducto := ProductoFisico{nombre: "Zapatos", precio: -5, stock: 5}
+    if err := MostrarProducto(malProducto); err != nil {
+        fmt.Println("Error detectado:", err)
+    }
+}
